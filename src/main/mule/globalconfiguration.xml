@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+
+ <http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="b0e9477a-e03a-46e8-b5ba-1aa1df55459e" >
+		<http:request-connection host="indigo-services.us-e2.cloudhub.io" port="80" />
+	</http:request-config>
+
+	<configuration doc:name="Configuration" doc:id="fcef6f0e-53b4-4403-8792-9df377a37ec4" defaultErrorHandler-ref="globalconfigurationError_Handler" />
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="d1e93ba6-4d07-423f-881a-6322327aff8b" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<error-handler name="globalconfigurationError_Handler" doc:id="4bcd591e-b5e9-4757-850d-3a129335241c" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="56ca4dbf-0cbe-40b5-96d8-2b94a30094f7" type="HTTP:CONNECTIVITY, HTTP:TIMEOUT">
+			<ee:transform doc:name="Transform Message" doc:id="629d760a-3172-4b0f-949e-d8fba7e5b77a" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	message:"error from target system"
+}]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-propagate>
+	</error-handler>
+</mule>

@@ -13,7 +13,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<app.runtime>4.3.0-20210322</app.runtime>
+		<app.runtime>4.3.0</app.runtime>
 		<mule.maven.plugin.version>3.5.1</mule.maven.plugin.version>
 	</properties>
 
@@ -33,7 +33,7 @@
 				 <cloudHubDeployment>
 				      <uri>https://anypoint.mulesoft.com</uri>
 				      <muleVersion>4.3.0</muleVersion>
-				      <username>Happi-4355</username>
+				      <username>Happi_4355</username>
 				      <password>happi@4355</password>
 				      <applicationName>indigo-cloud</applicationName>
 				      <environment>DEV</environment>
